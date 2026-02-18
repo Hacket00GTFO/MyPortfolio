@@ -9,7 +9,7 @@
 
 **A modern Point of Sale (POS) system built with .NET 9 and Hexagonal Architecture.**
 
--  Decoupled and scalable architecture (Ports & Adapters)
+- 🧩 Decoupled and scalable architecture (Ports & Adapters)
 -  Support for SQL Server and PostgreSQL
 -  Advanced security: JWT, BCrypt, validation, and CORS
 -  Observability: OpenTelemetry, structured logging, and health checks
@@ -36,7 +36,7 @@
 
 
 
-###  LaPradera
+### ◼️ LaPradera
 
 Sistema multi-tenant para gestión de restaurantes y comercios. Backend desarrollado en C# con .NET 7, arquitectura RESTful API usando ASP.NET Core. Pruebas automatizadas con Postman y Python. Scripts SQL para migraciones y lógica de base de datos. Contenerización y despliegue con Docker y Docker Compose. Seguridad avanzada e integración continua en AWS. Frontend web desarrollado en React.js y TypeScript.
 
@@ -51,7 +51,7 @@ Sistema multi-tenant para gestión de restaurantes y comercios. Backend desarrol
 
 
 
-### Remichain
+### ◼️ Remichain
 
 Plataforma blockchain para gestión de activos y contratos. Backend en Node.js (JavaScript/TypeScript) con API RESTful (Express.js). Frontend web en React.js y aplicación móvil en React Native, ambos usando TypeScript. Orquestación y despliegue con Docker, Docker Compose y Kubernetes. Monitoreo con Prometheus y Grafana. Seguridad con AWS IAM.
 
@@ -66,7 +66,7 @@ Plataforma blockchain para gestión de activos y contratos. Backend en Node.js (
 
 
 
-###  StraforAI
+### ◼️ StraforAI
 
 Plataforma para generación y análisis de datos aplicados a IA en recursos humanos. Backend y scripts en Node.js (JavaScript), API RESTful para procesamiento de datos, generación de datos sintéticos, análisis y visualización (CSV, dashboards). Frontend web para visualización de datos desarrollado en React.js. Automatización de flujos de datos y entrenamiento de modelos.
 
@@ -79,7 +79,7 @@ Plataforma para generación y análisis de datos aplicados a IA en recursos huma
 
 
 
-###  desingVITO
+### ◼️ desingVITO
 
 Proyecto de diseño y prototipado de interfaces para aplicaciones web y móviles. Prototipos interactivos y wireframes desarrollados en Figma y Adobe XD. Diseño de frontend para aplicaciones web y móviles, documentación UX y diseño responsivo para múltiples plataformas.
 
@@ -91,7 +91,7 @@ Proyecto de diseño y prototipado de interfaces para aplicaciones web y móviles
 
 
 
-###  HPE-AI
+### ◼️ HPE-AI
 
 Soluciones de inteligencia artificial para análisis de datos y automatización empresarial. Desarrollo de modelos de machine learning en Python usando Scikit-learn y Pandas. Frontend web para visualización de resultados desarrollado en Streamlit. Integración de pipelines de datos y visualización avanzada en Jupyter Notebooks. API RESTful para inferencia y automatización.
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import ProjectCard from './components/ProjectCard';
 import TechLogoLoop from './components/TechLogoLoop';
-import InfoCarousel from './components/InfoCarousel';
+
 import Waves from './components/Waves';
+import ProjectGridAnimator from './components/ProjectGridAnimator';
 import { projects } from './data/projects';
 
 export default function App() {
@@ -29,7 +30,7 @@ export default function App() {
           <div className="card p-8" style={{ borderRadius: 16 }}>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div>
-                <div className="hero-title">Portfolio</div>
+                <div className="hero-title">Portafolio</div>
                 <div className="subtitle">Resumen técnico y tecnologías para proyectos profesionales: backend, frontend, contenerización y observabilidad.</div>
                 <div style={{ marginTop: 16 }}>
                   <a href="#projects" className="tech-pill">Ver proyectos</a>
@@ -48,14 +49,20 @@ export default function App() {
         </section>
 
         <section id="projects" style={{ marginTop: 32 }}>
-          <h2 className="section-title">Proyectos</h2>
-          <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+          <div className="flex items-center justify-between">
+            <h2 className="section-title">Proyectos</h2>
+
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginTop: 12 }}>
             {projects.map(p => (
-              <div id={p.id} key={p.id}>
-                <ProjectCard project={p} />
+              <div key={p.id}>
+                <ProjectCard project={p} horizontal />
               </div>
             ))}
           </div>
+
+          <ProjectGridAnimator animateFrom="bottom" stagger={0.08} blurToFocus scaleOnHover hoverScale={0.97} />
         </section>
 
         <section id="technologies" style={{ marginTop: 40 }}>
@@ -74,12 +81,6 @@ export default function App() {
           </div>
         </section>
 
-        <section id="highlights" style={{ marginTop: 40 }}>
-          <h2 className="section-title">Puntos destacados</h2>
-          <div style={{ marginTop: 12 }}>
-            <InfoCarousel />
-          </div>
-        </section>
 
         <footer className="footer" style={{ marginTop: 56 }}>
           <div className="container">

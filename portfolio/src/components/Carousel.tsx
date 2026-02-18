@@ -90,11 +90,12 @@ export default function Carousel({
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isJumping, setIsJumping] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (pauseOnHover && containerRef.current) {
-      const container = containerRef.current;
+    const container = containerRef.current;
+    if (pauseOnHover && container) {
       const handleMouseEnter = () => setIsHovered(true);
       const handleMouseLeave = () => setIsHovered(false);
       container.addEventListener('mouseenter', handleMouseEnter);
@@ -106,16 +107,35 @@ export default function Carousel({
     }
   }, [pauseOnHover]);
 
+  // pause autoplay when carousel is off-screen or when tab is hidden
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => setIsVisible(e.isIntersecting));
+    }, { threshold: 0.2 });
+    io.observe(container);
+    const onVisibility = () => setIsVisible(!document.hidden);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      io.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
+
   useEffect(() => {
     if (!autoplay || itemsForRender.length <= 1) return undefined;
     if (pauseOnHover && isHovered) return undefined;
+    if (!isVisible) return undefined;
+    if (document.hidden) return undefined;
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
     const timer = setInterval(() => {
       setPosition(prev => Math.min(prev + 1, itemsForRender.length - 1));
     }, autoplayDelay);
 
     return () => clearInterval(timer);
-  }, [autoplay, autoplayDelay, isHovered, pauseOnHover, itemsForRender.length]);
+  }, [autoplay, autoplayDelay, isHovered, pauseOnHover, itemsForRender.length, isVisible]);
 
   useEffect(() => {
     const startingPosition = loop ? 1 : 0;

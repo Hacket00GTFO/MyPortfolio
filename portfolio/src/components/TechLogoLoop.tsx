@@ -20,7 +20,11 @@ import {
   SiScikitlearn,
   SiPandas,
   SiJupyter,
-  SiStreamlit
+  SiStreamlit,
+  SiVite,
+  SiTailwindcss,
+  SiReactquery,
+  SiReactrouter
 } from 'react-icons/si';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -45,7 +49,12 @@ const iconMap: Record<string, React.ReactNode> = {
   'scikit-learn': <SiScikitlearn className="text-[#f97316]" />,
   pandas: <SiPandas className="text-[#150458]" />,
   jupyter: <SiJupyter className="text-[#f37626]" />,
-  streamlit: <SiStreamlit className="text-[#ff4b4b]" />
+  streamlit: <SiStreamlit className="text-[#ff4b4b]" />,
+  vite: <SiVite className="text-[#646cff]" />,
+  'tailwind css': <SiTailwindcss className="text-[#38bdf8]" />,
+  'tailwindcss': <SiTailwindcss className="text-[#38bdf8]" />,
+  'react query': <SiReactquery className="text-[#ff4b4b]" />,
+  'react router': <SiReactrouter className="text-[#61dafb]" />
 };
 
 export default function TechLogoLoop() {
@@ -72,7 +81,12 @@ export default function TechLogoLoop() {
     streamlit: 'streamlit',
     jupyter: 'jupyter',
     pandas: 'pandas',
-    'scikit-learn': 'scikitlearn'
+    'scikit-learn': 'scikitlearn',
+    vite: 'vite',
+    'tailwind css': 'tailwindcss',
+    'tailwindcss': 'tailwindcss',
+    'react query': 'reactquery',
+    'react router': 'react-router'
   };
 
   function getSlug(tech: string): string | undefined {
@@ -120,7 +134,7 @@ export default function TechLogoLoop() {
       opacity: 0.95
     };
 
-    const fallbackIconStyle: React.CSSProperties = { color: 'rgba(255,255,255,0.95)', width: iconSize, height: iconSize };
+const fallbackIconStyle: React.CSSProperties = { color: 'var(--text)', width: iconSize, height: iconSize };
 
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: circleSize, height: circleSize }}>
@@ -154,7 +168,7 @@ export default function TechLogoLoop() {
       const slug = getSlug(t) ?? t.toLowerCase().trim();
       const key = slug;
       if (!grouped.has(key)) {
-        const fallback = iconMap[t.toLowerCase().trim()] ?? iconMap['react'];
+        const fallback = iconMap[t.toLowerCase().trim()] ?? null; // no default to React — avoid duplicates
         grouped.set(key, { techs: [t], fallback });
       } else {
         grouped.get(key)!.techs.push(t);

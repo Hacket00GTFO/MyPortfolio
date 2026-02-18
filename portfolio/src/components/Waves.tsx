@@ -213,6 +213,26 @@ const Waves: React.FC<WavesProps> = ({
     if (!canvas || !container) return;
     ctxRef.current = canvas.getContext('2d');
 
+    // respect user preference for reduced motion
+    const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      // draw a single static frame and skip animation
+      function setSizeOnce() {
+        if (!container || !canvas) return;
+        const rect = container.getBoundingClientRect();
+        boundingRef.current = { width: rect.width, height: rect.height, left: rect.left, top: rect.top };
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+      }
+      setSizeOnce();
+      const { width, height } = boundingRef.current;
+      const ctx = ctxRef.current;
+      if (ctx) {
+        ctx.clearRect(0, 0, width, height);
+      }
+      return;
+    }
+
     function setSize() {
       if (!container || !canvas) return;
       const rect = container.getBoundingClientRect();
@@ -249,6 +269,11 @@ const Waves: React.FC<WavesProps> = ({
         linesRef.current.push(pts);
       }
     }
+
+    const isMobile = window.innerWidth < 900;
+    const targetFPS = isMobile ? 30 : 60;
+    const frameInterval = 1000 / targetFPS;
+    let lastTime = 0;
 
     function movePoints(time: number) {
       const lines = linesRef.current;
@@ -313,6 +338,17 @@ const Waves: React.FC<WavesProps> = ({
 
     function tick(t: number) {
       if (!container) return;
+      // pause when tab is not visible
+      if (document.hidden) {
+        frameIdRef.current = requestAnimationFrame(tick);
+        return;
+      }
+      if (t - lastTime < frameInterval) {
+        frameIdRef.current = requestAnimationFrame(tick);
+        return;
+      }
+      lastTime = t;
+
       const mouse = mouseRef.current;
       mouse.sx += (mouse.x - mouse.sx) * 0.1;
       mouse.sy += (mouse.y - mouse.sy) * 0.1;
