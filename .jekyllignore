@@ -1,0 +1,7 @@
+# Ignore files and folders from Jekyll processing
+node_modules
+portfolio
+portfolio/node_modules
+dist
+portfolio/dist
+.github
